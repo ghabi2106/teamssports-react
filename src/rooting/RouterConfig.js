@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Route, Redirect } from "react-router-dom";
 import routes from "./routes";
-// import UserService from "../services/user.service";
+import UserService from "../services/user.service";
 import history from "./history";
 
 function RouteConfig() {
@@ -40,13 +40,13 @@ export const PrivateRoute = ({
     <Route
       {...rest}
       render={props =>
-        // isPublic || (!isPublic && UserService.isAuthentificated()) ? (
+        isPublic || (!isPublic && UserService.isAuthentificated()) ? (
           <Component {...props} status={status} />
-        // ) : (
-        //   <Redirect
-        //     to={{ pathname: "/login", state: { from: props.location } }}
-        //   />
-        // )
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
       }
     />
   </Router>
